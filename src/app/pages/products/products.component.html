@@ -19,8 +19,8 @@
                 <td> {{product.description}} </td>
                 <td><img src="{{product.images}} " alt="" width="200px" height="200px" > </td>
                 <td> {{product.category}} </td>
-                <td><a href="#" (click)="deleteProduct(product.id)">Eliminar</a></td>
-                <td><a href="#" (click)="updateProduct">Editar</a></td>
+                <td><button href="#" (click)="deleteProduct(product.id)">Eliminar</button></td>
+                <td><button href="#" (click)="updateProduct">Editar</button></td>
             </tr>
         </tbody>
     </table>
