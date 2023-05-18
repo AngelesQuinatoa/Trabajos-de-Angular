@@ -14,13 +14,13 @@
         <label for="description" class="form-label">Descripción</label>
         <textarea id="description" [(ngModel)]="selectedProduct.description" name="description" class="form-control"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Actualizar</button>
+      <button type="submit" class="btn"  style="color:rgb(255, 255, 255); background-color: rgb(122, 8, 84);">Actualizar</button>
     </form>
   </div>
 </div>
 <hr>
 <div class="table-responsive">
-  <table class="table table-primary">
+  <table class="table table-primary" style="background-color: rgb(198, 149, 187); color: white;" >
     <thead>
       <tr>
         <th scope="col">Producto</th>
@@ -41,37 +41,13 @@
           <img src="{{ product.images[0] }}" alt="" width="200px" height="200px">
         </td>
         <td>
-          <button class="btn btn-warning" (click)="editProduct(product)">Editar</button>
+          <button class="btn btn-warning" style="background-color: blueviolet;" (click)="editProduct(product)">Editar</button>
         </td>
         <td>
-          <button href="" class="btn btn-danger" (click)="deleteProduct(product.id)">Eliminar</button>
+          <button href="" class="btn btn-danger" style="background-color: rgb(226, 43, 202);" (click)="deleteProduct(product.id)">Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
-</div>
-<div class="table-responsive">
-    <table class="table table-primary border:1px" style="background-color: #FEDEFF;">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Descripcion</th>
-                <th>Imagen</th>
-                <th>Categoria</th>
-                <td>Acciones</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class=""  *ngFor="let product of products">
-                <td> {{product.title}} </td>
-                <td> {{product.price}} </td>
-                <td> {{product.description}} </td>
-                <td><img src="{{product.images}} " alt="" width="200px" height="200px" > </td>
-                <td> {{product.category}} </td>
-                <td><button href="#" (click)="deleteProduct(product.id)">Eliminar</button></td>
-                <td><button href="#" (click)="updateProduct">Editar</button></td>
-            </tr>
-        </tbody>
-    </table>
+
 </div>
