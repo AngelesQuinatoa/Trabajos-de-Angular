@@ -8,63 +8,64 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-   products:ProductModel[] = [];
+  products: ProductModel[] = [];
+  selectedProduct: UpdateProductDto = {};
 
-   selectedProduct: UpdateProductDto = {title:'', price:0, description:''};
+  constructor(private productService: ProductService) { }
+  showUpdateForm: boolean = false;
 
-  constructor(private productService:ProductService) {
-   this.editProduct();
-  }
-  
   ngOnInit(): void {
     this.getProducts();
-    //this.getProduct();
-    //this.createProduct();
-    //this.updateProduct();
-    //this.deleteProduct();
   }
 
-  getProducts(){
-    const url = "https://api.escuelajs.co/api/v1/products";
-    this.productService.getAll().subscribe(
-      response =>{
-        this.products = response;
-        console.log(response);
-      }
-    )
+  getProducts(): void {
+    this.productService.getAll().subscribe(response => {
+      this.products = response;
+      console.log(response);
+    });
   }
-  getProduct(id: ProductModel['id'] ){
-    const url = "https://api.escuelajs.co/api/v1/products/id";
-    return this.productService.getOne(id).subscribe(
-      response =>{
-        console.log(response);
-      }
-    )
+
+  createProduct() {
+    const data: CreateProductDto = {
+      title: "Vestimenta de dama",
+      price: 289,
+      description: "Vestido",
+      images: ['http://api.lorem.space/image/furniture?w=640&h=480&r=8718'],
+      categoryId: 1,
+    };
+    
+    this.productService.store(data).subscribe(response => {
+      console.log(response);
+      // Llama a getProducts() nuevamente para obtener la lista actualizada después de crear el producto
+      this.getProducts();
+    });
   }
-  createProduct(product: CreateProductDto){
-    this.productService.store(product).subscribe(
-      response =>{
-        console.log(response);
-      }
-    )
+
+  editProduct(product: ProductModel) {
+    this.selectedProduct = product;
   }
-  updateProduct(id: ProductModel['id'], product:UpdateProductDto){
-    this.productService.update(id, product).subscribe(
-      response =>{
-        console.log(response);
-      }
-    )
+
+  updateProduct() {
+    const data: UpdateProductDto = {
+      title: "Angeles",
+      price: 3500,
+      description: "Laptop Gaming / Angeles Quinatoa",
+      images: ['http://api.lorem.space/image/furniture?w=640&h=480&r=8718'],
+      categoryId: 1
+    };
+    
+    const productId = this.selectedProduct.id; // Obtén el ID del producto seleccionado
+    this.productService.update(12, data).subscribe(response => {
+      console.log(response);
+      // Llama a getProducts() nuevamente para obtener la lista actualizada después de actualizar el producto
+      this.getProducts();
+    });
   }
-  editProduct(){
-    this.selectedProduct = {title:'', price:0, description:''};
-  }
-  
-  deleteProduct(id: ProductModel['id']){
-    this.productService.destroy(id).subscribe(
-      response =>{
-        this.products = this.products.filter(product => product.id != id); 
-        console.log(response);
-      }
-    )
+
+  deleteProduct(id: ProductModel['id']) {
+    this.productService.destroy(id).subscribe(response => {
+      this.products = this.products.filter(product => product.id !== id);
+      console.log(response);
+    });
   }
 }
